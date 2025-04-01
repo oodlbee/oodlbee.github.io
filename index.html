@@ -57,9 +57,9 @@
       position: relative;
       display: flex;
       justify-content: flex-end;
-      margin-top: 15px;
+      margin-top: 10px;
       /* Фиксированная высота для сохранения размеров */
-      min-height: 60px;
+      min-height: 20px;
     }
     /* Изначальное позиционирование кнопки внутри контейнера */
     #submit-btn {
@@ -143,13 +143,20 @@
     let isButtonOutside = false; // Флаг, что кнопка уже покинула контейнер
 
     function moveButton() {
-      // При первом перемещении создаем placeholder, чтобы контейнер не менял размеры
+      // Если кнопка еще не покинула контейнер, создаем placeholder и фиксируем размеры кнопки
       if (!isButtonOutside) {
+        // Создаем placeholder для сохранения размера контейнера
         const placeholder = document.createElement('div');
         placeholder.id = 'button-placeholder';
         placeholder.style.width = button.offsetWidth + 'px';
         placeholder.style.height = button.offsetHeight + 'px';
         buttonContainer.insertBefore(placeholder, button);
+        
+        // Фиксируем размер кнопки, чтобы он не изменялся после перемещения
+        const computedStyle = window.getComputedStyle(button);
+        button.style.width = computedStyle.width;
+        button.style.height = computedStyle.height;
+        
         // Перемещаем кнопку в body и меняем позиционирование на fixed
         document.body.appendChild(button);
         button.style.position = 'fixed';
@@ -164,6 +171,8 @@
       const newY = Math.random() * maxY;
       button.style.left = `${newX}px`;
       button.style.top = `${newY}px`;
+      button.style.width = computedStyle.width;
+      button.style.height = computedStyle.height;
     }
 
     // Функция для определения расстояния от центра кнопки до точки касания
@@ -172,7 +181,6 @@
       const centerX = buttonRect.left + buttonRect.width / 2;
       const centerY = buttonRect.top + buttonRect.height / 2;
       const distance = Math.hypot(centerX - touch.clientX, centerY - touch.clientY);
-      // Если расстояние меньше порогового (например, 150px), перемещаем кнопку
       if (distance < 150) {
         moveButton();
       }
