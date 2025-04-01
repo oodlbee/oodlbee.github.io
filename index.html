@@ -186,7 +186,7 @@
       const centerX = buttonRect.left + buttonRect.width / 2;
       const centerY = buttonRect.top + buttonRect.height / 2;
       const distance = Math.hypot(centerX - touch.clientX, centerY - touch.clientY);
-      if (distance < 30) {
+      if (distance < 40) {
         moveButton();
       }
     }
