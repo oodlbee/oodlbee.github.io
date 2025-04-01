@@ -1,144 +1,183 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Опрос на тусовку</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f4f4f4;
-            overflow: hidden;
-            position: relative;
-            padding: 10px;
-        }
-        .container {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            position: relative;
-            width: 90%;
-            max-width: 400px;
-        }
-        .input-group {
-            margin: 15px 0;
-            text-align: left;
-            padding: 15px;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        input, select {
-            width: 100%;
-            padding: 8px;
-            margin-top: 5px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        .radio-group {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 5px;
-        }
-        .radio-group label {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        button {
-            padding: 12px 24px;
-            font-size: 16px;
-            border: none;
-            background: #28a745;
-            color: white;
-            border-radius: 5px;
-            cursor: pointer;
-            position: fixed;
-            right: 20px;
-            bottom: 20px;
-            transition: right 0.1s, bottom 0.1s;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Опрос на тусовку</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f4f4f4;
+      overflow: hidden;
+      padding: 10px;
+      margin: 0;
+    }
+    .container {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 90%;
+      max-width: 400px;
+      position: relative;
+      transition: transform 0.3s;
+    }
+    .input-group {
+      margin: 15px 0;
+      text-align: left;
+      padding: 15px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    input, select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .radio-group {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 5px;
+    }
+    .radio-group label {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .button-container {
+      position: relative;
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 15px;
+      /* Фиксированная высота для сохранения размеров */
+      min-height: 60px;
+    }
+    /* Изначальное позиционирование кнопки внутри контейнера */
+    #submit-btn {
+      padding: 12px 24px;
+      font-size: 16px;
+      border: none;
+      background: #28a745;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+      position: relative;
+      transition: left 0.1s, top 0.1s;
+    }
+    /* Стили для заполнителя, чтобы он был невидим, но сохранял размеры */
+    #button-placeholder {
+      display: inline-block;
+      width: 0;
+      height: 0;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h2>Пройди опрос</h2>
-        <form id="survey-form">
-            <div class="input-group">
-                <label for="email">Введите вашу почту:</label>
-                <input type="email" id="email">
-            </div>
-            <div class="input-group">
-                <label>Ты придешь?</label>
-                <div class="radio-group">
-                    <label><input type="radio" name="coming" value="yes"> Да</label>
-                    <label><input type="radio" name="coming" value="no"> Нет</label>
-                </div>
-            </div>
-            <div class="input-group">
-                <label for="friends">Сколько друзей возьмешь с собой?</label>
-                <select id="friends">
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4+</option>
-                </select>
-            </div>
-            <div class="input-group">
-                <label for="excitement">Насколько сильно ты ждешь это мероприятие (1-10)?</label>
-                <input type="number" id="excitement" min="1" max="10">
-            </div>
-            <div class="input-group">
-                <label for="bringing">Что принесешь с собой?</label>
-                <input type="text" id="bringing">
-            </div>
-            <div class="input-group">
-                <label>Что будешь есть?</label>
-                <div class="radio-group">
-                    <label><input type="radio" name="food" value="pizza"> Пиццу</label>
-                    <label><input type="radio" name="food" value="chips"> Чипсы</label>
-                    <label><input type="radio" name="food" value="crackers"> Сухарики</label>
-                </div>
-            </div>
-            <div class="input-group">
-                <label>Что будешь пить?</label>
-                <div class="radio-group">
-                    <label><input type="radio" name="drink" value="beer"> Пиво</label>
-                    <label><input type="radio" name="drink" value="wine"> Вино</label>
+  <div class="container" id="form-container">
+    <h2>Пройди опрос</h2>
+    <form id="survey-form">
+      <div class="input-group">
+        <label for="email">Введите вашу почту:</label>
+        <input type="email" id="email">
+      </div>
+      <div class="input-group">
+        <label>Ты придешь?</label>
+        <div class="radio-group">
+          <label><input type="radio" name="coming" value="yes"> Да</label>
+          <label><input type="radio" name="coming" value="no"> Нет</label>
+        </div>
+      </div>
+      <div class="input-group">
+        <label for="friends">Сколько друзей возьмешь с собой?</label>
+        <select id="friends">
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4+</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <label for="excitement">Насколько сильно ты ждешь это мероприятие (1-10)?</label>
+        <input type="number" id="excitement" min="1" max="10">
+      </div>
+      <div class="input-group">
+        <label for="bringing">Что принесешь с собой?</label>
+        <input type="text" id="bringing">
+      </div>
+      <div class="input-group">
+        <label>Что будешь есть?</label>
+        <div class="radio-group">
+          <label><input type="radio" name="food" value="pizza"> Пиццу</label>
+          <label><input type="radio" name="food" value="chips"> Чипсы</label>
+          <label><input type="radio" name="food" value="crackers"> Сухарики</label>
+        </div>
+      </div>
+      <div class="input-group">
+        <label>Что будешь пить?</label>
+        <div class="radio-group">
+          <label><input type="radio" name="drink" value="beer"> Пиво</label>
+          <label><input type="radio" name="drink" value="wine"> Вино</label>
+          <label><input type="radio" name="drink" value="strong"> Крепкое</label>
+        </div>
+      </div>
+      <div class="button-container" id="button-container">
+        <button id="submit-btn">Отправить</button>
+      </div>
+    </form>
+  </div>
 
-                    <label><input type="radio" name="drink" value="strong"> Крепкое</label>
-                </div>
-            </div>
-            <button id="submit-btn">Отправить</button>
-        </form>
-    </div>
+  <script>
+    const button = document.getElementById("submit-btn");
+    const form = document.getElementById("form-container");
+    const buttonContainer = document.getElementById("button-container");
+    let isButtonOutside = false; // Флаг, указывающий, что кнопка уже покинула контейнер
+
+    function moveButton() {
+      // Если кнопка еще не покинула контейнер, создаем заполнитель и перемещаем кнопку в body
+      if (!isButtonOutside) {
+        // Создаем placeholder, который займет место кнопки
+        const placeholder = document.createElement('div');
+        placeholder.id = 'button-placeholder';
+        placeholder.style.width = button.offsetWidth + 'px';
+        placeholder.style.height = button.offsetHeight + 'px';
+        buttonContainer.insertBefore(placeholder, button);
+        // Перемещаем кнопку в body и делаем position: fixed
+        document.body.appendChild(button);
+        button.style.position = 'fixed';
+        isButtonOutside = true;
+      }
+      // Вычисляем случайное положение в пределах видимой части экрана,
+      // чтобы кнопка полностью помещалась внутри viewport
+      const buttonRect = button.getBoundingClientRect();
+      const maxX = window.innerWidth - buttonRect.width;
+      const maxY = window.innerHeight - buttonRect.height;
+      const newX = Math.random() * maxX;
+      const newY = Math.random() * maxY;
+      button.style.left = `${newX}px`;
+      button.style.top = `${newY}px`;
+    }
+
+    function handleTouchMove(event) {
+      const touch = event.touches[0];
+      const buttonRect = button.getBoundingClientRect();
+      const centerX = buttonRect.left + buttonRect.width / 2;
+      const centerY = buttonRect.top + buttonRect.height / 2;
+      const distance = Math.hypot(centerX - touch.clientX, centerY - touch.clientY);
+      if (distance < 100) moveButton();
+    }
     
-    <script>
-      
-        const button = document.getElementById("submit-btn");
-        
-        function moveButton(event) {
-            let buttonRect = button.getBoundingClientRect();
-            let maxX = window.innerWidth - buttonRect.width - 20;
-            let maxY = window.innerHeight - buttonRect.height - 20;
-            
-            let newX = Math.min(Math.max(Math.random() * maxX, 20), maxX);
-            let newY = Math.min(Math.max(Math.random() * maxY, 20), maxY);
-            
-            button.style.right = `${window.innerWidth - newX - buttonRect.width}px`;
-            button.style.bottom = `${window.innerHeight - newY - buttonRect.height}px`;
-        }
-        button.addEventListener("touchstart", moveButton);
-        
-        button.addEventListener("mouseover", moveButton);
-    </script>
+    button.addEventListener("mouseover", moveButton);
+    document.addEventListener("touchmove", handleTouchMove);
+  </script>
 </body>
 </html>
