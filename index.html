@@ -140,24 +140,23 @@
     const button = document.getElementById("submit-btn");
     const form = document.getElementById("form-container");
     const buttonContainer = document.getElementById("button-container");
-    let isButtonOutside = false; // Флаг, указывающий, что кнопка уже покинула контейнер
+    let isButtonOutside = false; // Флаг, что кнопка уже покинула контейнер
 
     function moveButton() {
-      // Если кнопка еще не покинула контейнер, создаем заполнитель и перемещаем кнопку в body
+      // При первом перемещении создаем placeholder, чтобы контейнер не менял размеры
       if (!isButtonOutside) {
-        // Создаем placeholder, который займет место кнопки
         const placeholder = document.createElement('div');
         placeholder.id = 'button-placeholder';
         placeholder.style.width = button.offsetWidth + 'px';
         placeholder.style.height = button.offsetHeight + 'px';
         buttonContainer.insertBefore(placeholder, button);
-        // Перемещаем кнопку в body и делаем position: fixed
+        // Перемещаем кнопку в body и меняем позиционирование на fixed
         document.body.appendChild(button);
         button.style.position = 'fixed';
         isButtonOutside = true;
       }
       // Вычисляем случайное положение в пределах видимой части экрана,
-      // чтобы кнопка полностью помещалась внутри viewport
+      // чтобы кнопка полностью оставалась внутри viewport
       const buttonRect = button.getBoundingClientRect();
       const maxX = window.innerWidth - buttonRect.width;
       const maxY = window.innerHeight - buttonRect.height;
@@ -167,16 +166,30 @@
       button.style.top = `${newY}px`;
     }
 
-    function handleTouchMove(event) {
-      const touch = event.touches[0];
+    // Функция для определения расстояния от центра кнопки до точки касания
+    function checkAndMove(touch) {
       const buttonRect = button.getBoundingClientRect();
       const centerX = buttonRect.left + buttonRect.width / 2;
       const centerY = buttonRect.top + buttonRect.height / 2;
       const distance = Math.hypot(centerX - touch.clientX, centerY - touch.clientY);
-      if (distance < 100) moveButton();
+      // Если расстояние меньше порогового (например, 150px), перемещаем кнопку
+      if (distance < 150) {
+        moveButton();
+      }
+    }
+
+    function handleTouchStart(event) {
+      const touch = event.touches[0];
+      checkAndMove(touch);
+    }
+    
+    function handleTouchMove(event) {
+      const touch = event.touches[0];
+      checkAndMove(touch);
     }
     
     button.addEventListener("mouseover", moveButton);
+    document.addEventListener("touchstart", handleTouchStart);
     document.addEventListener("touchmove", handleTouchMove);
   </script>
 </body>
