@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Капча</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            background-color: #fff;
+        }
+        .container {
+            text-align: center;
+        }
+        input {
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Докажите, что вы не робот</h2>
+        <input type="text" placeholder="Введите капчу">
+        <br>
+        <button id="captcha-btn">Отправить</button>
+    </div>
+
+    <script>
+        const button = document.getElementById("captcha-btn");
+
+        button.addEventListener("mouseover", function() {
+            const maxX = window.innerWidth - button.offsetWidth;
+            const maxY = window.innerHeight - button.offsetHeight;
+            const newX = Math.random() * maxX;
+            const newY = Math.random() * maxY;
+            button.style.position = "absolute";
+            button.style.left = `${newX}px`;
+            button.style.top = `${newY}px`;
+        });
+    </script>
+</body>
+</html>
