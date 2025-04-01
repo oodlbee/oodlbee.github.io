@@ -13,7 +13,6 @@
       align-items: center;
       min-height: 100vh;
       background-color: #f4f4f4;
-      /* Разрешаем вертикальную прокрутку, скрывая только горизонтальную */
       overflow-x: hidden;
       overflow-y: auto;
       padding: 10px;
@@ -61,8 +60,7 @@
       display: flex;
       justify-content: flex-end;
       margin-top: 15px;
-      /* Фиксированная высота для сохранения размеров */
-      min-height: 40px;
+      min-height: 40px; /* для сохранения размеров контейнера */
     }
     /* Изначальное позиционирование кнопки внутри контейнера */
     #submit-btn {
@@ -74,6 +72,7 @@
       border-radius: 5px;
       cursor: pointer;
       position: relative;
+      /* Анимация будет отключена на мобильном устройстве через JS */
       transition: left 0.1s, top 0.1s;
     }
     /* Стили для заполнителя, чтобы он был невидим, но сохранял размеры */
@@ -146,6 +145,13 @@
     const buttonContainer = document.getElementById("button-container");
     let isButtonOutside = false; // Флаг, что кнопка уже покинула контейнер
 
+    // Определяем, мобильное ли устройство (по userAgent)
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    if (isMobile) {
+      // Если мобильное устройство, отключаем анимацию перемещения
+      button.style.transition = 'none';
+    }
+
     function moveButton() {
       // Если кнопка еще не покинула контейнер, создаем placeholder и фиксируем размеры кнопки
       if (!isButtonOutside) {
@@ -180,7 +186,7 @@
       const centerX = buttonRect.left + buttonRect.width / 2;
       const centerY = buttonRect.top + buttonRect.height / 2;
       const distance = Math.hypot(centerX - touch.clientX, centerY - touch.clientY);
-      if (distance < 50) {
+      if (distance < 30) {
         moveButton();
       }
     }
