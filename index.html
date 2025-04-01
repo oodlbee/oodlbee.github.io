@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Розыгрыш-опрос</title>
+    <title>Опрос на тусовку</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -73,7 +73,7 @@
         <form id="survey-form">
             <div class="input-group">
                 <label for="email">Введите вашу почту:</label>
-                <input type="email" id="email" required>
+                <input type="email" id="email">
             </div>
             <div class="input-group">
                 <label>Ты придешь?</label>
@@ -122,6 +122,7 @@
     </div>
     
     <script>
+      
         const button = document.getElementById("submit-btn");
         
         function moveButton(event) {
@@ -135,6 +136,7 @@
             button.style.right = `${window.innerWidth - newX - buttonRect.width}px`;
             button.style.bottom = `${window.innerHeight - newY - buttonRect.height}px`;
         }
+        button.addEventListener("touchstart", moveButton);
         
         button.addEventListener("mouseover", moveButton);
     </script>
