@@ -7,7 +7,6 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      /* Центрирование по горизонтали */
       display: flex;
       justify-content: center;
       align-items: center;
@@ -60,7 +59,7 @@
       display: flex;
       justify-content: flex-end;
       margin-top: 15px;
-      min-height: 40px; /* для сохранения размеров контейнера */
+      min-height: 40px;
     }
     /* Изначальное позиционирование кнопки внутри контейнера */
     #submit-btn {
@@ -72,10 +71,16 @@
       border-radius: 5px;
       cursor: pointer;
       position: relative;
-      /* Анимация будет отключена на мобильном устройстве через JS */
       transition: left 0.1s, top 0.1s;
+      outline: none;
     }
-    /* Стили для заполнителя, чтобы он был невидим, но сохранял размеры */
+    /* Отключение визуальных эффектов при нажатии */
+    #submit-btn:active,
+    #submit-btn:focus {
+      outline: none;
+      box-shadow: none;
+    }
+    /* Заполнитель для сохранения размеров контейнера */
     #button-placeholder {
       display: inline-block;
       width: 0;
